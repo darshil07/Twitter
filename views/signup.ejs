@@ -1,0 +1,139 @@
+<html>
+<head>
+
+	<meta charset="utf-8"/>
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+ 	<link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"/>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+	<!-- Twitter Favicon -->
+	<link rel="icon" type="image/jpg" href="twitter-favicon.jpg"/>
+
+	<!-- Script for Angular JS -->
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+	
+	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+	<!-- Loading the AngularJS file from /public/angularJS folder -->
+	<script src="angularjs/signup.js"></script>
+	<style>
+		.signup{
+			width: 350px;
+			height: 317px;
+			margin : 40px auto;
+		}
+	</style>
+
+	<title>Sign up for Twitter</title>
+</head>
+
+<body ng-app="signup" ng-controller="signup">
+
+	<div class="container-fluid">
+		<div class="row" style="background-image:url('homeimage.jpg');">
+			<p class= "text-center">
+				<a href='/homepage'><img src="twitter-logo.jpg" height="23" width="23" style="margin-top: 20px; margin-left: 20px;" /></a>
+			</p>
+		</div>
+		
+		<div class="signup">
+			<form role = "form" name="signupform" ng-submit="submit()">
+				<h2>Join Twitter Today.</h2>
+
+				<!-- Username -->
+				<div class="form-group">
+			      	<label for="username">Username</label>
+			      	<input type="username" class="form-control" ng-model="username" placeholder="Enter Username" required/>
+			    	<!-- <label ng-show = "signupform.username.$error.required">Username is Required</label> -->
+			    </div>
+
+				<!-- Password -->
+				<div class="form-group">
+			      <label for="passwod">Password</label>
+			      <input type="password" class="form-control" ng-model="password" placeholder="Enter password" required/>
+			      <!-- <label ng-show = "signupform.password.$error.required">Password is Required</label> -->
+			    </div>
+
+				<!-- First Name -->
+			    <div class="form-group">
+			      <label for="firstname">First Name</label>
+			      <input type="text" class="form-control" ng-model="firstname" placeholder="Enter First Name" required/>
+			      <!-- <label ng-show = "signupform.firstname.$error.required">First Name is Required</label> -->
+			    </div>
+
+				<!-- Last Name -->
+				<div class="form-group">
+			      <label for="lastname">Last Name</label>
+			      <input type="text" class="form-control" ng-model="lastname" placeholder="Enter Last Name"/>
+			    </div>
+
+				<!-- Email -->
+				<div class="form-group">
+			      	<label for="email">Email</label>
+			      	<input type="email" class="form-control" ng-model="email" placeholder="Enter email" required/>
+			      	<!-- <label ng-show="signupform.email.$dirty && signupform.email.$invalid">
+              			<label ng-show = "signupform.email.$error.required">Email is required</label>
+              			<label ng-show = "signupform.email.$error.email">Invalid email address</label>
+              		</label> -->
+              		
+              		<!-- <div ng-model = "isEmailExist"> -->
+              			<div class="alert alert-danger" ng-show="isEmailExist=='true'">
+  							<strong>Entered Email exist!</strong>
+						</div>
+					</div>
+              		<!-- <label ng-model="emailExists"></label> -->
+			    <!-- </div> -->
+
+				<!-- Gender -->
+				<div class= "form-group">
+					<label for="gender">Gender</label>
+					<div class="radio" ng-init="gender=Male">
+      					<label><input type="radio" ng-model="gender" value="Male"/>Male</label>
+    				</div>
+    				<div class="radio">
+     					<label><input type="radio" ng-model="gender" value="Female"/>Female</label>
+    				</div>
+				</div>
+
+				<!-- Birthday -->
+
+
+				<div class="form-group">
+			    	<script src="//cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
+					<script>
+			    		webshims.setOptions('forms-ext', {types: 'date'});
+						webshims.polyfill('forms forms-ext');
+					</script>
+					<div class="col-sm-8" style="margin-bottom: 10px; margin-left:0px;">
+						<input type="date" class="form-control" ng-model="birthdate" ></input>
+					</div> 
+			    </div>
+
+			    <!-- Location -->
+				<div class="form-group">
+					<br>
+					<br>
+			      <label for="lastname" style="margin-right:400px;">Location</label>
+			      <input type="text" class="form-control" ng-model="location" placeholder="Enter Location"/>
+			    </div>
+
+			    <!-- Contact -->
+				<div class="form-group">
+			      <label for="contact">Contact</label>
+			      <input type="text" class="form-control" ng-model="contact" placeholder="Enter Contact"/>
+			    </div>
+
+				<!-- Submit Button -->
+				<button type="submit" class="btn btn-info btn-block">Sign up</button>
+					
+			</form>
+			
+		</div>
+	</div>
+</body>
+</html>

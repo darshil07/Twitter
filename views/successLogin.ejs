@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Successful Login</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>All Users in Database</h1>
+    <div>
+	       <% for(var i in data) 
+	            {                     
+            %>
+           		    <p><strong>EmailId: </strong><%= data[i].username %></p>
+                	<p><strong>Password: </strong><%= data[i].password %></p>
+            		<br>       
+           <% 
+	            }  
+	       %>
+	</div>
+  </body>
+</html>

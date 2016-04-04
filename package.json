@@ -1,0 +1,15 @@
+{
+  "name": "NodeExpress",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "env": {
+    "PYTHON": "/opt/local/bin/python2.7"
+  },
+  "dependencies": {
+    "express": "3.4.8",
+    "ejs": "*"
+  }
+}

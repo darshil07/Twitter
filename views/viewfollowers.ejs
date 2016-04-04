@@ -1,0 +1,178 @@
+<html>
+<head>
+	
+	<meta charset="utf-8"/>
+
+ 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+ 	<link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+
+	<!-- Twitter Favicon -->
+	<link rel="icon" type="image/jpg" href="twitter-favicon.jpg"/>
+
+	<!-- Script for Angular JS -->
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+
+	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+	<!-- Loading the AngularJS file from /public/angularJS folder -->
+	<script src="angularjs/viewfollowers.js"></script>
+	
+	<script>
+		window.usernameScript = <%= username %>;
+		window.emailScript = <%= email %>;
+		window.useridScript = <%= userid %>;
+	</script>
+
+	<style>
+		.followerList{
+			width: 450px;
+			height: 417px;
+			margin : 40px auto;
+		}
+	</style>
+
+
+	<title>Twitter</title>
+</head>
+<body ng-app="viewfollower" ng-controller="viewfollower">
+	
+		<div class="container-fluid">
+		<div class="row" style="background-image:url('homeimage.jpg');">
+			<div class="col-md-4">
+			</div>
+			<div class="col-md-4" style="color: white; margin-bottom: 12px" align="center">
+				<a href='/homepage'><img src="twitter-logo.jpg" height="23" width="23" style="margin-top: 20px; margin-right: 100px;" /></a>
+			</div>
+			<div class="col-md-2" style="margin-top: 20px;" align="right">
+
+				<form  role = "form" name="searchform">
+					<div class="col-md-1">
+						<div class="form-group">
+			      			<input type="search" class="form-control" ng-model="inputSearch" placeholder="Search Twitter" required
+			      			style="width:115px">
+			    		</div>
+			    	</div>
+			    	<div class="col-md-1">
+			    		<div class="form-group">
+			    			<button type="submit" class="btn btn-info" style="height:35px; margin-left:89px;"
+			    			ng-if="inputSearch.length>0" ng-model="searchButton" class="btn btn-info" ng-disabled="inputSearch.length < 1" ng-click="search();"></button>
+			    		</div>
+			    	</div>
+				</form>
+			</div>
+			<div class="col-md-1" style="margin-top: 10px;">
+				<p class="text-right">
+					<div class="dropdown">
+  						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    						<span class="glyphicon glyphicon-user"></span> <%= username %>
+    						<span class="caret"></span>
+  						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+							<li><a href="/viewprofile">View Profile</a></li>
+					   		<li role="separator" class="divider"></li>
+					   		<li><a href="/logout">Logout</a></li>
+						</ul>
+					</div>
+				</p>
+			</div>
+		
+			<div class="col-md-1" style="margin-top: 20px;">
+				<p class="text-left">
+					<button type="button" id="tweet" class="btn btn-info" data-toggle="modal" data-target="#tweetModal">Tweet</button>
+				</p>
+			</div>
+		</div>
+	</div>
+	<!-- Tweet Modal -->
+	<div id="tweetModal" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-md">
+		<!-- Tweet Modal Content -->
+			<div class="modal-content">
+	        	<div class="modal-header">
+	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	          		<h3 class="modal-title">Compose new Tweet</h3>
+	        	</div>
+	        		
+	        	<div class="modal-body">
+	         		<form role="form" name="tweetForm">
+	            			
+
+	         				<!-- <div class="input-group input-group-lg col-sm-6">
+   								<div class="input-group-addon">Status</div>
+   								<input id="inputPostMessage" class="form-control input-lg" ng-model="inputMessage" placeholder="What is your status?" type="text">
+   								<div class="input-group-btn">
+     								<button id="btnPost" type="button" class="btn btn-success" ng-disabled="inputMessage.length < 5 || inputMessage.length >= 141" ng-class="{'btn-warning': inputMessage.length >= 120, 'btn-danger': inputMessage.length >= 141 }">
+     									{{ 140 - inputMessage.length }}
+     								</button>
+   								</div>   
+ 							</div> -->
+
+	            		<div class="form-group">
+	            			<textarea class="form-control" rows="3" id="inputTweet" ng-model="inputTweet" ng-trim="false" style="resize : none;" placeholder="What's happening?"></textarea>
+	            		</div>
+	            		<div class="form-group" align="right">
+	            			{{140 - inputTweet.length}}
+	            			<button ng-if="inputTweet.length>0" type="submit" ng-model="tweetButton" class="btn btn-info" ng-disabled="inputTweet.length < 1 || inputTweet.length > 140" ng-click="doTweet();">Tweet</button>
+	            		</div>
+	          		</form>
+	        	</div>
+	      	</div>
+	    </div>
+	</div>
+	
+
+	<div class="container-fluid">
+		<div ng-model = "userid" style="visibility : hidden;"></div>
+		<div class="followerList">
+			<h2 style="align:center;">Followers list</h2>
+			<div ng-show="isFollowerList>0">
+				<div ng-repeat="tempUser in followerusername">	
+					<div class="row">
+						<div class="col-md-3" align="right">
+							<img src="user-profile-image.jpg" height="70" width="70" style="margin-top:20px;"/>
+						</div>
+						<div class="col-md-5" align="left">
+							<div class="row">
+								<h3><label for="name" ng-model = "name">{{name[$index]}}</label></h3>
+							</div>
+							<div class="row">
+								<h4><label for="followerusername" ng-model = "followerusername">{{tempUser}}</label></h4>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<!-- If Following -->
+							<div ng-show="isFollowing[$index]">
+								<button type="submit" class="btn btn-primary" style="height:35px; margin-left:89px;"
+			    				ng-model="buttonUnfollow" ng-click="follow(followeruserid[$index]);">Unfollow</button>
+							</div>
+							<!-- If not Following -->
+							<div ng-show="!isFollowing[$index]">
+								<div ng-show="followeruserid[$index]!=userid">
+									<button type="submit" class="btn btn-info" style="height:35px; margin-left:89px;"
+			    					ng-model="buttonFollow" ng-click="follow(followeruserid[$index]);">Follow</button>
+								</div>
+							</div>
+
+
+						</div>
+						<div class="col-md-2">
+						</div>
+						<hr>
+					</div>
+				</div>
+			</div>
+			<div ng-show="isFollowerList<1">
+				<h3>You don't have a follower</h3>
+			</div>
+			<div ng-model="isFollowerList" style="visibility: hidden" ng-init="isFollowerList=0"></div>
+		</div>
+	</div>
+</body>
+</html>
